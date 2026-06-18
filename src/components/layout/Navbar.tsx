@@ -78,13 +78,6 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center gap-4">
             <LocaleToggle locale={locale} setLocale={setLocale} />
-            <a
-              href="#booking"
-              onClick={(e) => handleScroll(e, "#booking")}
-              className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-white bg-[#1E3A8A] rounded-full hover:bg-[#0A1128] transition-colors duration-300"
-            >
-              {t.nav.cta}
-            </a>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -123,13 +116,6 @@ export default function Navbar() {
 
           <div className="mt-8 flex items-center justify-between border-t border-[#0A1128]/10 pt-8">
             <LocaleToggle locale={locale} setLocale={setLocale} />
-            <a
-              href="#booking"
-              onClick={(e) => handleScroll(e, "#booking")}
-              className="inline-flex items-center px-5 py-3 text-sm text-[#1E3A8A] border border-[#0A1128]/25 rounded-full"
-            >
-              {t.nav.cta}
-            </a>
           </div>
         </div>
       </div>

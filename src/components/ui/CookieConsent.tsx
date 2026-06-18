@@ -1,140 +1,182 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useT } from "@/lib/i18n";
 import { gsap } from "@/lib/gsap";
 
 export default function CookieConsent() {
   const [show, setShow] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
+  const [analytics, setAnalytics] = useState(false);
+  const [marketing, setMarketing] = useState(false);
+  const bannerRef = useRef<HTMLDivElement | null>(null);
   const { t } = useT();
 
   useEffect(() => {
     setMounted(true);
     const consent = localStorage.getItem("sollen_cookie_consent");
     if (!consent) {
-      // Small delay so it animates in nicely after page load
-      const timer = setTimeout(() => setShow(true), 1000);
+      const timer = setTimeout(() => setShow(true), 1200);
       return () => clearTimeout(timer);
     }
   }, []);
 
   useEffect(() => {
-    if (show) {
-      document.body.style.overflow = "hidden";
+    if (show && bannerRef.current) {
       gsap.fromTo(
-        ".cookie-overlay",
-        { opacity: 0 },
-        { opacity: 1, duration: 0.4, ease: "power2.out" }
+        bannerRef.current,
+        { y: "100%", opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }
       );
-      gsap.fromTo(
-        ".cookie-modal",
-        { opacity: 0, y: 20, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.2)", delay: 0.1 }
-      );
-    } else {
-      document.body.style.overflow = "";
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [show]);
 
-  const handleAction = (action: "accept" | "reject" | "close") => {
-    gsap.to(".cookie-modal", {
-      opacity: 0,
-      y: 10,
-      scale: 0.95,
-      duration: 0.3,
-      ease: "power2.in",
-    });
-    gsap.to(".cookie-overlay", {
-      opacity: 0,
-      duration: 0.3,
-      delay: 0.1,
-      ease: "power2.in",
-      onComplete: () => {
-        localStorage.setItem("sollen_cookie_consent", action);
-        setShow(false);
-      },
-    });
+  const dismiss = (action: "accept" | "reject" | "custom" | "close") => {
+    const preferences = {
+      necessary: true,
+      analytics: action === "accept" ? true : action === "custom" ? analytics : false,
+      marketing: action === "accept" ? true : action === "custom" ? marketing : false,
+      timestamp: new Date().toISOString(),
+    };
+
+    if (bannerRef.current) {
+      gsap.to(bannerRef.current, {
+        y: "100%",
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.in",
+        onComplete: () => {
+          localStorage.setItem("sollen_cookie_consent", action);
+          localStorage.setItem("sollen_cookie_preferences", JSON.stringify(preferences));
+          setShow(false);
+        },
+      });
+    }
   };
 
   if (!mounted || !show) return null;
 
   return (
-    <div className="cookie-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-[#0A1128]/30 backdrop-blur-md opacity-0">
-      <div className="cookie-modal relative w-full max-w-[640px] bg-white rounded-[24px] shadow-2xl p-6 md:p-8 flex flex-col gap-6 opacity-0">
-        <button
-          onClick={() => handleAction("close")}
-          className="absolute top-6 right-6 p-2 text-[#0A1128]/40 hover:text-[#0A1128] transition-colors"
-          aria-label="Close"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M18 6L6 18M6 6l12 12" />
-          </svg>
-        </button>
+    <div
+      ref={bannerRef}
+      className="fixed bottom-0 left-0 right-0 z-[90] opacity-0"
+      style={{ transform: "translateY(100%)" }}
+    >
+      <div className="mx-auto max-w-7xl px-4 pb-4 md:px-6 md:pb-6">
+        <div className="bg-white rounded-2xl shadow-[0_-4px_40px_rgba(10,17,40,0.12)] border border-[#0A1128]/8 p-5 md:p-6">
 
-        <div className="flex items-center gap-4">
-          <div className="flex-shrink-0 w-12 h-12 bg-[#F97316] rounded-xl flex items-center justify-center">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" />
-              <path d="M8.5 8.5v.01" />
-              <path d="M16 12.5v.01" />
-              <path d="M12 16v.01" />
-              <path d="M11 12.5v.01" />
-              <path d="M14.5 15.5v.01" />
-            </svg>
-          </div>
-          <div className="flex flex-col">
-            <h3 className="text-[#1E3A8A] text-lg font-bold tracking-tight">
-              {t.cookie.title}
-            </h3>
-            <p className="text-[#0A1128]/60 text-sm">{t.cookie.subtitle}</p>
-          </div>
-        </div>
+          {/* Main row */}
+          <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
 
-        <p className="text-[#0A1128]/80 text-sm leading-relaxed">
-          {t.cookie.description}{" "}
-          <a href="#" className="text-[#1E3A8A] font-medium hover:underline">
-            {t.cookie.learnMore}
-          </a>
-        </p>
+            {/* Cookie icon + text */}
+            <div className="flex items-start gap-3 flex-1 min-w-0">
+              <div className="shrink-0 w-9 h-9 bg-[#F97316] rounded-lg flex items-center justify-center mt-0.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" />
+                  <path d="M8.5 8.5v.01" />
+                  <path d="M16 12.5v.01" />
+                  <path d="M12 16v.01" />
+                </svg>
+              </div>
+              <div className="min-w-0">
+                <p className="text-[#1C2035] text-sm font-semibold">{t.cookie.title}</p>
+                <p className="text-[#637087] text-xs leading-relaxed mt-1">
+                  {t.cookie.description}{" "}
+                  <a href="#" className="text-[#1E3A8A] font-medium hover:underline">
+                    {t.cookie.learnMore}
+                  </a>
+                </p>
+              </div>
+            </div>
 
-        <div className="mt-2 flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-[#0A1128]/10">
-          <button className="flex items-center gap-2 text-[#0A1128]/60 hover:text-[#0A1128] text-sm font-medium transition-colors">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" />
-              <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
-              <path d="M12 2v2" />
-              <path d="M12 20v2" />
-              <path d="m4.93 4.93 1.41 1.41" />
-              <path d="m17.66 17.66 1.41 1.41" />
-              <path d="M2 12h2" />
-              <path d="M20 12h2" />
-              <path d="m6.34 17.66-1.41 1.41" />
-              <path d="m19.07 4.93-1.41 1.41" />
-            </svg>
-            {t.cookie.customize}
-          </button>
-          
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            <button
-              onClick={() => handleAction("reject")}
-              className="flex-1 sm:flex-none px-6 py-2.5 text-sm font-medium text-[#0A1128] hover:bg-[#0A1128]/5 rounded-xl transition-colors"
-            >
-              {t.cookie.rejectAll}
-            </button>
-            <button
-              onClick={() => handleAction("accept")}
-              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-2.5 text-sm font-medium text-white bg-[#0A1128] hover:bg-black rounded-xl transition-colors shadow-lg shadow-[#0A1128]/20"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 6 9 17l-5-5" />
-              </svg>
-              {t.cookie.acceptAll}
-            </button>
+            {/* Buttons */}
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() => setShowDetails(!showDetails)}
+                className="px-4 py-2 text-xs font-medium text-[#637087] hover:text-[#1C2035] transition-colors"
+              >
+                {t.cookie.customize}
+              </button>
+              <button
+                onClick={() => dismiss("reject")}
+                className="px-4 py-2 text-xs font-medium text-[#1C2035] border border-[#E5E7EB] rounded-lg hover:bg-[#F3F4F6] transition-colors"
+              >
+                {t.cookie.rejectAll}
+              </button>
+              <button
+                onClick={() => dismiss(showDetails ? "custom" : "accept")}
+                className="px-5 py-2 text-xs font-medium text-white bg-[#1E3A8A] rounded-lg hover:bg-[#0A1128] transition-colors shadow-sm"
+              >
+                {t.cookie.acceptAll}
+              </button>
+            </div>
           </div>
+
+          {/* Expandable detail categories */}
+          {showDetails && (
+            <div className="mt-4 pt-4 border-t border-[#E5E7EB]">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+
+                {/* Necessary */}
+                <div className="rounded-xl border border-[#E5E7EB] bg-[#FAFAFA] p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-[#1C2035] text-xs font-semibold">{t.cookie.categories.necessary.title}</p>
+                    <span className="px-2 py-0.5 text-[9px] font-bold tracking-wider uppercase text-[#1E3A8A] bg-[#1E3A8A]/10 rounded-full">
+                      {t.cookie.alwaysOn}
+                    </span>
+                  </div>
+                  <p className="text-[#637087] text-[11px] leading-relaxed">{t.cookie.categories.necessary.description}</p>
+                </div>
+
+                {/* Analytics */}
+                <div className="rounded-xl border border-[#E5E7EB] bg-[#FAFAFA] p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-[#1C2035] text-xs font-semibold">{t.cookie.categories.analytics.title}</p>
+                    <button
+                      onClick={() => setAnalytics(!analytics)}
+                      className={`relative w-9 h-5 rounded-full transition-colors duration-300 ${
+                        analytics ? "bg-[#1E3A8A]" : "bg-[#D1D5DB]"
+                      }`}
+                      aria-label="Toggle analytics"
+                    >
+                      <span
+                        className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-300 ${
+                          analytics ? "translate-x-4" : "translate-x-0"
+                        }`}
+                      />
+                    </button>
+                  </div>
+                  <p className="text-[#637087] text-[11px] leading-relaxed">{t.cookie.categories.analytics.description}</p>
+                </div>
+
+                {/* Marketing */}
+                <div className="rounded-xl border border-[#E5E7EB] bg-[#FAFAFA] p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-[#1C2035] text-xs font-semibold">{t.cookie.categories.marketing.title}</p>
+                    <button
+                      onClick={() => setMarketing(!marketing)}
+                      className={`relative w-9 h-5 rounded-full transition-colors duration-300 ${
+                        marketing ? "bg-[#1E3A8A]" : "bg-[#D1D5DB]"
+                      }`}
+                      aria-label="Toggle marketing"
+                    >
+                      <span
+                        className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-300 ${
+                          marketing ? "translate-x-4" : "translate-x-0"
+                        }`}
+                      />
+                    </button>
+                  </div>
+                  <p className="text-[#637087] text-[11px] leading-relaxed">{t.cookie.categories.marketing.description}</p>
+                </div>
+              </div>
+
+              <p className="text-[#0A1128]/35 text-[10px] mt-3">
+                {t.cookie.compliance}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

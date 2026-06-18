@@ -269,15 +269,7 @@ export default function SolutionsSection() {
                     </p>
                   </div>
 
-                  <div className="mt-8 mb-10 lg:mb-0">
-                    <a 
-                      href="#booking"
-                      onClick={(e) => handleScroll(e, "#booking")}
-                      className="inline-flex items-center gap-1 text-sm font-semibold text-[#2F1A73] hover:opacity-70 transition-opacity"
-                    >
-                      {locale === "en" ? "Book a demo" : "Demo al"} <span aria-hidden="true">→</span>
-                    </a>
-                  </div>
+
                 </div>
 
                 {/* Right side – phone mockup(s) */}

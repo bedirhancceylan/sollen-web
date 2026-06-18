@@ -59,16 +59,9 @@ export default function HeroSection() {
           </p>
           <div ref={ctaRef} className="mt-10 flex flex-wrap items-center gap-4 opacity-0">
             <a
-              href="#contact"
-              onClick={(e) => handleScroll(e, "#contact")}
-              className="inline-flex items-center px-6 py-3.5 text-sm font-medium text-white bg-[#1E3A8A] rounded-full hover:bg-[#0A1128] transition-colors duration-300"
-            >
-              {t.hero.primaryCta}
-            </a>
-            <a
               href="#product"
               onClick={(e) => handleScroll(e, "#product")}
-              className="inline-flex items-center px-6 py-3.5 text-sm font-medium text-[#1E3A8A] border border-[#1E3A8A]/20 rounded-full hover:bg-[#1E3A8A]/5 transition-colors duration-300"
+              className="inline-flex items-center px-6 py-3.5 text-sm font-medium text-white bg-[#1E3A8A] rounded-full hover:bg-[#0A1128] transition-colors duration-300"
             >
               {t.hero.secondaryCta}
             </a>

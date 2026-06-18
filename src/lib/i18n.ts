@@ -181,11 +181,27 @@ export const TRANSLATIONS = {
       title: "Cookie Preferences",
       subtitle: "We value your privacy",
       description:
-        "We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. By clicking \"Accept All\", you consent to our use of cookies.",
-      learnMore: "Learn more",
+        "We use cookies and similar technologies to provide our services, enhance your browsing experience, analyze site traffic, and personalize content. You can manage your preferences below. For more information, see our Privacy Policy.",
+      learnMore: "Privacy Policy",
       customize: "Customize",
       rejectAll: "Reject All",
       acceptAll: "Accept All",
+      categories: {
+        necessary: {
+          title: "Strictly Necessary",
+          description: "Essential for the website to function. These cookies enable core features such as security, session management, and accessibility. They cannot be disabled.",
+        },
+        analytics: {
+          title: "Analytics & Performance",
+          description: "Help us understand how visitors interact with our website by collecting and reporting information anonymously. This data helps us improve site performance and user experience.",
+        },
+        marketing: {
+          title: "Marketing & Personalization",
+          description: "Used to deliver relevant advertisements and track campaign effectiveness across platforms. These cookies may be set by third-party partners.",
+        },
+      },
+      alwaysOn: "Always on",
+      compliance: "This site complies with GDPR (EU) and KVKK (Türkiye) data protection regulations.",
     },
   },
   tr: {
@@ -364,11 +380,27 @@ export const TRANSLATIONS = {
       title: "Çerez Tercihleri",
       subtitle: "Gizliliğinize önem veriyoruz",
       description:
-        "Tarama deneyiminizi geliştirmek, site trafiğini analiz etmek ve içeriği kişiselleştirmek için çerezleri kullanıyoruz. \"Tümünü Kabul Et\" seçeneğine tıklayarak çerez kullanımımıza izin vermiş olursunuz.",
-      learnMore: "Daha fazla bilgi",
+        "Hizmetlerimizi sunmak, tarama deneyiminizi geliştirmek, site trafiğini analiz etmek ve içeriği kişiselleştirmek için çerezler ve benzer teknolojiler kullanıyoruz. Tercihlerinizi aşağıdan yönetebilirsiniz. Daha fazla bilgi için Gizlilik Politikamızı inceleyebilirsiniz.",
+      learnMore: "Gizlilik Politikası",
       customize: "Özelleştir",
       rejectAll: "Tümünü Reddet",
       acceptAll: "Tümünü Kabul Et",
+      categories: {
+        necessary: {
+          title: "Zorunlu Çerezler",
+          description: "Web sitesinin çalışması için gereklidir. Güvenlik, oturum yönetimi ve erişilebilirlik gibi temel işlevleri sağlar. Bu çerezler devre dışı bırakılamaz.",
+        },
+        analytics: {
+          title: "Analiz ve Performans",
+          description: "Ziyaretçilerin web sitemizle nasıl etkileşimde bulunduğunu anonim olarak anlamamıza yardımcı olur. Bu veriler site performansını ve kullanıcı deneyimini iyileştirmemize katkı sağlar.",
+        },
+        marketing: {
+          title: "Pazarlama ve Kişiselleştirme",
+          description: "İlgili reklamları sunmak ve kampanya etkinliğini platformlar arasında izlemek için kullanılır. Bu çerezler üçüncü taraf ortaklar tarafından ayarlanabilir.",
+        },
+      },
+      alwaysOn: "Her zaman açık",
+      compliance: "Bu site GDPR (AB) ve KVKK (Türkiye) kişisel verilerin korunması mevzuatına uygundur.",
     },
   },
 } as const;
