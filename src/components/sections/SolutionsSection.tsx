@@ -230,7 +230,7 @@ export default function SolutionsSection() {
             style={{ transform: `translateX(-${activeTab * 100}%)` }}
           >
             {TABS.map((t) => (
-              <div key={t.id} className="w-full shrink-0 grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-16 items-start min-h-[500px]">
+              <div key={t.id} className="flex-[0_0_100%] overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-16 items-start min-h-[500px]">
                 
                 {/* Left side – Text content */}
                 <div className="flex flex-col pt-4">
@@ -273,9 +273,9 @@ export default function SolutionsSection() {
                 </div>
 
                 {/* Right side – phone mockup(s) */}
-                <div className={`flex items-start justify-center gap-4 pt-2 w-full ${t.secondImage ? "" : ""}`}>
+                <div className="flex items-start justify-center gap-3 sm:gap-4 pt-2 w-full">
                   {/* Main phone */}
-                  <div className="drop-shadow-xl w-full max-w-[220px] sm:max-w-[260px] shrink-0">
+                  <div className={`drop-shadow-xl ${t.secondImage ? "w-[42%] max-w-[220px] sm:max-w-[260px]" : "w-full max-w-[220px] sm:max-w-[260px]"}`}>
                     <img
                       src={t.mainImage}
                       alt={t.label}
@@ -284,9 +284,9 @@ export default function SolutionsSection() {
                     />
                   </div>
 
-                  {/* Secondary phone – same size, side by side */}
+                  {/* Secondary phone – side by side, smaller on mobile */}
                   {t.secondImage && (
-                    <div className="drop-shadow-xl w-full max-w-[220px] sm:max-w-[260px] shrink-0">
+                    <div className="drop-shadow-xl w-[42%] max-w-[220px] sm:max-w-[260px]">
                       <img
                         src={t.secondImage}
                         alt={`${t.label} - 2`}
