@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    // Vercel'da (özellikle sınırlı CPU/RAM kaynaklarında) static generation
+    // aşamasında takılmaları (hang) önlemek için worker kullanımını kapatıyoruz.
+    workerThreads: false,
+    cpus: 1,
+  },
 };
 
 export default nextConfig;
