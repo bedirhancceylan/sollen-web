@@ -72,17 +72,17 @@ export default function FooterSection() {
               {t.footer.cta.eyebrow}
             </p>
             <h2
-              className="mt-6 text-[#1E3A8A] font-bold tracking-cinematic leading-[1.05] whitespace-nowrap"
+              className="mt-6 text-[#1E3A8A] font-bold tracking-cinematic leading-[1.05] lg:whitespace-nowrap"
               style={{ fontSize: "clamp(2.25rem, 5vw, 4.5rem)" }}
             >
               {t.footer.cta.headline}
             </h2>
-            <p className="mt-8 text-[#0A1128] text-base md:text-lg max-w-md leading-relaxed">
+            <p className="mt-8 text-base md:text-lg max-w-md leading-relaxed" style={{ color: 'rgba(30, 58, 138, 0.7)' }}>
               {t.footer.cta.lede}
             </p>
           </div>
 
-          <div ref={formRef} className="flex items-center justify-end opacity-0">
+          <div ref={formRef} className="flex items-center justify-start lg:justify-end opacity-0">
             <a
               href="mailto:info@sollen.com.tr"
               className="inline-flex items-center px-8 py-4 text-sm font-medium text-[#1E3A8A] border border-[#0A1128]/20 rounded-full hover:bg-[#1E3A8A] hover:text-white hover:border-[#1E3A8A] transition-all duration-300"

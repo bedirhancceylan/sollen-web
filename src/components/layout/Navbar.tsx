@@ -47,21 +47,44 @@ export default function Navbar() {
   return (
     <header
         ref={navRef}
-        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1rem)] md:w-[calc(100%-2rem)] max-w-5xl bg-[#FDFBF7]/95 backdrop-blur-md shadow-[0_8px_30px_rgb(10,17,40,0.06)] border border-[#0A1128]/10 rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1rem)] md:w-[calc(100%-2rem)] max-w-5xl bg-[#FDFBF7]/95 backdrop-blur-md shadow-[0_8px_30px_rgb(10,17,40,0.06)] border border-[#0A1128]/10 rounded-2xl md:rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
       >
-        <div className="flex items-center justify-between px-3 py-3 md:px-6 md:py-4">
-          <a href="#" onClick={(e) => handleScroll(e, "#")} className="relative z-10 flex items-center gap-2 shrink-0">
-            <Image src="/logos/beyaz-ustu-logo-1.png" alt="Sollen" width={100} height={32} className="h-6 md:h-8 w-auto object-contain" />
+        {/* Mobile layout: vertical stack */}
+        <div className="flex flex-col items-center px-4 py-4 gap-3 md:hidden">
+          <a href="#" onClick={(e) => handleScroll(e, "#")} className="relative z-10 flex items-center gap-2">
+            <Image src="/logos/beyaz-ustu-logo-1.png" alt="Sollen" width={100} height={32} className="h-7 w-auto object-contain" />
           </a>
 
-          {/* Nav Links – always visible */}
-          <nav className="flex items-center gap-3 md:gap-8">
+          <div className="flex items-center gap-4">
+            <nav className="flex items-center gap-3">
+              {navLinks.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => handleScroll(e, item.href)}
+                  className="text-[11px] font-medium text-[#0A1128]/70 hover:text-[#1E3A8A] transition-colors whitespace-nowrap"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+            <LocaleToggle locale={locale} setLocale={setLocale} />
+          </div>
+        </div>
+
+        {/* Desktop layout: horizontal */}
+        <div className="hidden md:flex items-center justify-between px-6 py-4">
+          <a href="#" onClick={(e) => handleScroll(e, "#")} className="relative z-10 flex items-center gap-2 shrink-0">
+            <Image src="/logos/beyaz-ustu-logo-1.png" alt="Sollen" width={100} height={32} className="h-8 w-auto object-contain" />
+          </a>
+
+          <nav className="flex items-center gap-8">
             {navLinks.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={(e) => handleScroll(e, item.href)}
-                className="text-[11px] md:text-sm font-medium text-[#0A1128]/70 hover:text-[#1E3A8A] transition-colors whitespace-nowrap"
+                className="text-sm font-medium text-[#0A1128]/70 hover:text-[#1E3A8A] transition-colors whitespace-nowrap"
               >
                 {item.label}
               </a>
