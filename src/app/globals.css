@@ -39,10 +39,6 @@
   }
 }
 
-main > section + section {
-  border-top: 1px solid rgba(10, 17, 40, 0.06);
-}
-
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }

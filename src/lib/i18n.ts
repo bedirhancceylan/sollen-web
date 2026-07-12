@@ -9,7 +9,7 @@ export const TRANSLATIONS = {
     nav: {
       product: "ISGenius",
       solutions: "Solutions",
-      why: "Why Sollen",
+      why: "Why Sollen?",
       contact: "Contact",
       cta: "Book a demo",
     },
@@ -35,12 +35,6 @@ export const TRANSLATIONS = {
     },
     customers: {
       heading: "TRUSTED BY ORGANIZATIONS THAT DON'T LEAVE SAFETY TO CHANCE",
-    },
-    valueProp: {
-      eyebrow: "WHY SOLLEN",
-      headline: "We don't sell software. We engineer the operating system for safety.",
-      subtext:
-        "Sensor data, alerts, field teams, and compliance steps unify in a single operational flow. Sollen makes fragmented safety processes measurable, trackable, and manageable.",
     },
     product: {
       eyebrow: "ISGenius",
@@ -208,7 +202,7 @@ export const TRANSLATIONS = {
     nav: {
       product: "ISGenius",
       solutions: "Çözümler",
-      why: "Neden Sollen",
+      why: "Neden Sollen?",
       contact: "İletişim",
       cta: "Demo al",
     },
@@ -234,12 +228,6 @@ export const TRANSLATIONS = {
     },
     customers: {
       heading: "GÜVENLİĞİ ŞANSA BIRAKMAYAN KURUMLARIN TERCİHİ",
-    },
-    valueProp: {
-      eyebrow: "NEDEN SOLLEN",
-      headline: "Biz yazılım satmıyoruz. Güvenliğin işletim sistemini inşa ediyoruz.",
-      subtext:
-        "Sensörlerden gelen veriler, uyarılar, saha ekipleri ve mevzuat adımları tek bir operasyon akışında birleşir. Sollen, dağınık güvenlik süreçlerini ölçülebilir, izlenebilir ve yönetilebilir hale getirir.",
     },
     product: {
       eyebrow: "ISGenius",

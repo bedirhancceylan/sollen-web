@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useT } from "@/lib/i18n";
+import IsGeniusBadge from "@/components/ui/IsGeniusBadge";
 
 const TABS_TR = [
   {
@@ -187,7 +188,7 @@ export default function SolutionsSection() {
 
         {/* Header */}
         <div className="mb-12">
-          <p className="text-[#7460AB] text-[11px] font-bold tracking-[0.18em] uppercase mb-4">
+          <p className="text-[#0A1128] text-xs tracking-[0.3em] uppercase mb-4">
             {tDict.solutions.eyebrow}
           </p>
           <h2
@@ -196,7 +197,7 @@ export default function SolutionsSection() {
           >
             {tDict.solutions.headline}
           </h2>
-          <p className="text-[#637087] text-sm md:text-base leading-relaxed max-w-2xl">
+          <p className="text-[#333B4D] text-sm md:text-base leading-relaxed max-w-2xl">
             {tDict.solutions.subtext}
           </p>
         </div>
@@ -217,7 +218,7 @@ export default function SolutionsSection() {
             >
               {t.label}
               {activeTab === i && (
-                <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#2F1A73] rounded-full" />
+                <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#0036A3] rounded-full" />
               )}
             </button>
           ))}
@@ -230,29 +231,29 @@ export default function SolutionsSection() {
             style={{ transform: `translateX(-${activeTab * 100}%)` }}
           >
             {TABS.map((t) => (
-              <div key={t.id} className="flex-[0_0_100%] overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-16 items-start min-h-[500px]">
+              <div key={t.id} className="flex-[0_0_100%] overflow-hidden grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-16 items-start lg:min-h-[500px]">
                 
                 {/* Left side – Text content */}
                 <div className="flex flex-col pt-4">
-                  <p className="text-[#7460AB] text-[11px] font-bold tracking-[0.18em] uppercase">
+                  <p className="text-[#0A1128] text-xs tracking-[0.3em] uppercase">
                     {t.eyebrow}
                   </p>
-                  <h3 
+                  <h3
                     className="text-[#1C2035] font-bold tracking-tight leading-[1.1]"
                     style={{ fontSize: "clamp(1.5rem, 2.5vw, 2rem)", marginTop: "0.75rem", marginBottom: "1rem" }}
                   >
                     {t.title}
                   </h3>
-                  <p className="text-[#637087] text-[15px] leading-[1.6]">
+                  <p className="text-[#333B4D] text-[15px] leading-[1.6]">
                     {t.description}
                   </p>
 
                   {/* Pills */}
                   <div className="flex flex-wrap gap-2 mt-8">
                     {t.pills.map((pill) => (
-                      <span 
+                      <span
                         key={pill}
-                        className="px-3 py-1.5 text-xs font-medium text-[#2F1A73] bg-[#EDE9FF] rounded-full"
+                        className="px-3 py-1.5 text-xs font-medium text-[#0036A3] bg-[#0036A3]/[0.08] rounded-full"
                       >
                         {pill}
                       </span>
@@ -261,7 +262,7 @@ export default function SolutionsSection() {
 
                   {/* Outcome Block */}
                   <div className="mt-8 bg-white rounded-2xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#E5E7EB]">
-                    <p className="text-[#7460AB] text-[10px] font-bold tracking-[0.2em] uppercase mb-3">
+                    <p className="text-[#0A1128] text-xs tracking-[0.3em] uppercase mb-3">
                       {t.outcome.label}
                     </p>
                     <p className="text-[#1C2035] text-[15px] font-semibold leading-snug">
@@ -273,7 +274,8 @@ export default function SolutionsSection() {
                 </div>
 
                 {/* Right side – phone mockup(s) */}
-                <div className="flex items-start justify-center gap-3 sm:gap-4 pt-2 w-full">
+                <div className="flex flex-col items-center gap-4 pt-2 w-full">
+                  <div className="flex items-start justify-center gap-3 sm:gap-4 w-full">
                   {/* Main phone */}
                   <div className={`drop-shadow-xl ${t.secondImage ? "w-[42%] max-w-[220px] sm:max-w-[260px]" : "w-full max-w-[220px] sm:max-w-[260px]"}`}>
                     <img
@@ -295,6 +297,8 @@ export default function SolutionsSection() {
                       />
                     </div>
                   )}
+                  </div>
+                  <IsGeniusBadge />
                 </div>
               </div>
             ))}

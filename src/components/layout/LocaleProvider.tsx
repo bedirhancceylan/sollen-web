@@ -9,20 +9,22 @@ export default function LocaleProvider({ children }: { children: React.ReactNode
   const [locale, setLocaleState] = useState<Locale>("en");
 
   useEffect(() => {
-    const saved = typeof window !== "undefined" ? window.localStorage.getItem(STORAGE_KEY) : null;
-    const initial = (saved === "tr" || saved === "en") ? saved : "en";
+    let saved: string | null = null;
+    // localStorage can throw in Safari private mode — never let it break the app.
+    try {
+      saved = window.localStorage.getItem(STORAGE_KEY);
+    } catch {}
+    const initial = saved === "tr" || saved === "en" ? saved : "en";
     setLocaleState(initial);
-    if (typeof document !== "undefined") {
-      document.documentElement.lang = initial;
-    }
+    document.documentElement.lang = initial;
   }, []);
 
   function setLocale(l: Locale) {
     setLocaleState(l);
-    if (typeof window !== "undefined") {
+    document.documentElement.lang = l;
+    try {
       window.localStorage.setItem(STORAGE_KEY, l);
-      document.documentElement.lang = l;
-    }
+    } catch {}
   }
 
   return (

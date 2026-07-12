@@ -6,9 +6,16 @@ import { STATS_VALUES } from "@/lib/constants";
 import { useT } from "@/lib/i18n";
 import Counter from "@/components/ui/Counter";
 
+const toTitleCase = (text: string, locale: string) =>
+  text
+    .toLocaleLowerCase(locale)
+    .split(" ")
+    .map((w) => (w ? w[0].toLocaleUpperCase(locale) + w.slice(1) : w))
+    .join(" ");
+
 export default function StatsCardSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const { t } = useT();
+  const { t, locale } = useT();
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -40,7 +47,7 @@ export default function StatsCardSection() {
       ref={sectionRef}
       className="relative w-full py-24 lg:py-32 px-6 lg:px-16"
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div
           className="stats-card relative rounded-3xl p-10 lg:p-16 bg-[#0A1128]/[0.03] backdrop-blur-xl border border-[#0A1128]/10 opacity-0"
           style={{
@@ -48,15 +55,20 @@ export default function StatsCardSection() {
               "radial-gradient(ellipse 60% 80% at 50% 0%, rgba(30, 58, 138, 0.05) 0%, rgba(10, 17, 40, 0.01) 60%)",
           }}
         >
-          <p className="text-[#0A1128] text-xs tracking-[0.3em] uppercase">
-            {t.stats.eyebrow}
-          </p>
+          {/* Eyebrow promoted to the real heading (§6) */}
           <h2
-            className="mt-6 text-[#1E3A8A] font-bold tracking-cinematic leading-[1.05] max-w-3xl"
-            style={{ fontSize: "clamp(1.75rem, 3.5vw, 3rem)" }}
+            className="text-[#1E3A8A] font-bold tracking-cinematic leading-[1.05]"
+            style={{ fontSize: "clamp(1.6rem, 3.1vw, 3.1rem)" }}
+          >
+            {toTitleCase(t.stats.eyebrow, locale)}
+          </h2>
+          {/* Tagline demoted to a subordinate line (§6) */}
+          <p
+            className="mt-4 text-[#1C2035] font-semibold tracking-tight leading-[1.25] max-w-2xl"
+            style={{ fontSize: "clamp(1.25rem, 1.8vw, 1.5rem)" }}
           >
             {t.stats.headline}
-          </h2>
+          </p>
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8">
             {t.stats.items.map((item, idx) => (

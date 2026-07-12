@@ -1,20 +1,26 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 export default function PhoneModel() {
   const groupRef = useRef<THREE.Group>(null);
+  const gl = useThree((s) => s.gl);
   const screenTexture = useTexture("/screens/hero-portrait.png");
 
   useEffect(() => {
     if (!screenTexture) return;
     screenTexture.colorSpace = THREE.SRGBColorSpace;
-    screenTexture.anisotropy = 8;
+    // Max hardware anisotropy + trilinear mipmapping keeps the screen crisp
+    // even at the phone's slight tilt, instead of soft/blurry.
+    screenTexture.anisotropy = gl.capabilities.getMaxAnisotropy();
+    screenTexture.magFilter = THREE.LinearFilter;
+    screenTexture.minFilter = THREE.LinearMipmapLinearFilter;
+    screenTexture.generateMipmaps = true;
     screenTexture.needsUpdate = true;
-  }, [screenTexture]);
+  }, [screenTexture, gl]);
 
   useFrame((state) => {
     if (!groupRef.current) return;

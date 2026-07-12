@@ -50,16 +50,21 @@ export default function WhySollenSection() {
     <section
       id={SECTION_ID}
       ref={sectionRef}
-      className="relative w-full py-40 lg:py-56 px-6 lg:px-16"
+      className="relative w-full py-24 lg:py-32 px-6 lg:px-16"
     >
-      <div className="max-w-6xl mx-auto">
-        <p className="text-[#0A1128] text-xs tracking-[0.3em] uppercase">
-          {t.why.eyebrow}
-        </p>
+      <div className="max-w-7xl mx-auto">
+        {/* Section heading, styled like the ISGenius block heading (font + size) */}
+        <h2
+          className="text-[#1C2035] font-semibold tracking-tight leading-[1.1]"
+          style={{ fontSize: "clamp(1.75rem, 3.4vw, 3rem)" }}
+        >
+          {t.nav.why}
+        </h2>
+        {/* Explanation reverted to a small, readable paragraph */}
         <p
           ref={paragraphRef}
-          className="mt-10 lg:mt-14 font-bold tracking-tight leading-[1.2]"
-          style={{ fontSize: "clamp(1.75rem, 4vw, 3.5rem)" }}
+          className="mt-6 lg:mt-8 font-medium tracking-tight leading-[1.5] max-w-6xl"
+          style={{ fontSize: "clamp(1.3rem, 2.3vw, 1.95rem)" }}
         >
           {t.why.statement}
         </p>

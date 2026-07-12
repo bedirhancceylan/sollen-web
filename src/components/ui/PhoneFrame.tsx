@@ -15,7 +15,9 @@ export default function PhoneFrame({ src, alt, priority, width = 340 }: PhoneFra
           src={src}
           alt={alt}
           fill
-          sizes="(max-width: 768px) 80vw, 340px"
+          // Match the real display width so Next serves 2x–3x candidates (crisp on retina)
+          sizes={`(max-width: 768px) 85vw, ${width}px`}
+          quality={100}
           priority={priority}
           className="object-contain"
         />

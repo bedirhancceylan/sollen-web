@@ -11,10 +11,10 @@ export default function Home() {
     <main className="relative">
       <HeroSection />
       <TrustStripSection />
+      <WhySollenSection />
       <ProductFeaturesSection />
       <StatsCardSection />
       <SolutionsSection />
-      <WhySollenSection />
       <FooterSection />
     </main>
   );

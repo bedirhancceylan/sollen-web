@@ -15,7 +15,10 @@ export default function CookieConsent() {
 
   useEffect(() => {
     setMounted(true);
-    const consent = localStorage.getItem("sollen_cookie_consent");
+    let consent: string | null = null;
+    try {
+      consent = localStorage.getItem("sollen_cookie_consent");
+    } catch {}
     if (!consent) {
       const timer = setTimeout(() => setShow(true), 1200);
       return () => clearTimeout(timer);
@@ -47,8 +50,10 @@ export default function CookieConsent() {
         duration: 0.4,
         ease: "power2.in",
         onComplete: () => {
-          localStorage.setItem("sollen_cookie_consent", action);
-          localStorage.setItem("sollen_cookie_preferences", JSON.stringify(preferences));
+          try {
+            localStorage.setItem("sollen_cookie_consent", action);
+            localStorage.setItem("sollen_cookie_preferences", JSON.stringify(preferences));
+          } catch {}
           setShow(false);
         },
       });
@@ -81,7 +86,7 @@ export default function CookieConsent() {
               </div>
               <div className="min-w-0">
                 <p className="text-[#1C2035] text-sm font-semibold">{t.cookie.title}</p>
-                <p className="text-[#637087] text-xs leading-relaxed mt-1">
+                <p className="text-[#333B4D] text-xs leading-relaxed mt-1">
                   {t.cookie.description}{" "}
                   <a href="#" className="text-[#1E3A8A] font-medium hover:underline">
                     {t.cookie.learnMore}
@@ -94,7 +99,7 @@ export default function CookieConsent() {
             <div className="flex items-center gap-2 shrink-0">
               <button
                 onClick={() => setShowDetails(!showDetails)}
-                className="px-4 py-2 text-xs font-medium text-[#637087] hover:text-[#1C2035] transition-colors"
+                className="px-4 py-2 text-xs font-medium text-[#333B4D] hover:text-[#1C2035] transition-colors"
               >
                 {t.cookie.customize}
               </button>
@@ -126,7 +131,7 @@ export default function CookieConsent() {
                       {t.cookie.alwaysOn}
                     </span>
                   </div>
-                  <p className="text-[#637087] text-[11px] leading-relaxed">{t.cookie.categories.necessary.description}</p>
+                  <p className="text-[#333B4D] text-[11px] leading-relaxed">{t.cookie.categories.necessary.description}</p>
                 </div>
 
                 {/* Analytics */}
@@ -147,7 +152,7 @@ export default function CookieConsent() {
                       />
                     </button>
                   </div>
-                  <p className="text-[#637087] text-[11px] leading-relaxed">{t.cookie.categories.analytics.description}</p>
+                  <p className="text-[#333B4D] text-[11px] leading-relaxed">{t.cookie.categories.analytics.description}</p>
                 </div>
 
                 {/* Marketing */}
@@ -168,7 +173,7 @@ export default function CookieConsent() {
                       />
                     </button>
                   </div>
-                  <p className="text-[#637087] text-[11px] leading-relaxed">{t.cookie.categories.marketing.description}</p>
+                  <p className="text-[#333B4D] text-[11px] leading-relaxed">{t.cookie.categories.marketing.description}</p>
                 </div>
               </div>
 

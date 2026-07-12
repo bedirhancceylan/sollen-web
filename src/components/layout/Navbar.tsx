@@ -1,8 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap } from "@/lib/gsap";
-import { SITE_CONFIG, NAV_ITEMS } from "@/lib/constants";
+import { NAV_ITEMS } from "@/lib/constants";
 import { useT } from "@/lib/i18n";
 import Image from "next/image";
 import { useLenis } from "lenis/react";
@@ -47,16 +46,26 @@ export default function Navbar() {
   return (
     <header
         ref={navRef}
-        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-1rem)] md:w-[calc(100%-2rem)] max-w-5xl bg-[#FDFBF7]/95 backdrop-blur-md shadow-[0_8px_30px_rgb(10,17,40,0.06)] border border-[#0A1128]/10 rounded-2xl md:rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] md:w-[calc(100%-6rem)] max-w-7xl border border-white/50 rounded-2xl md:rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        style={{
+          // Apple-style "liquid glass": translucent gradient + strong blur/saturation,
+          // a bright specular top edge and layered depth shadows.
+          background:
+            "linear-gradient(180deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.36) 100%)",
+          backdropFilter: "blur(22px) saturate(185%)",
+          WebkitBackdropFilter: "blur(22px) saturate(185%)",
+          boxShadow:
+            "0 14px 44px rgba(10,17,40,0.18), 0 3px 10px rgba(10,17,40,0.08), inset 0 1px 1px rgba(255,255,255,0.95), inset 0 -10px 24px rgba(255,255,255,0.28)",
+        }}
       >
         {/* Mobile layout: vertical stack */}
         <div className="flex flex-col items-center px-4 py-4 gap-3 md:hidden">
           <a href="#" onClick={(e) => handleScroll(e, "#")} className="relative z-10 flex items-center gap-2">
-            <Image src="/logos/beyaz-ustu-logo-1.png" alt="Sollen" width={100} height={32} className="h-7 w-auto object-contain" />
+            <Image src="/logos/beyaz-ustu-logo-1.png" alt="Sollen" width={140} height={44} className="h-9 w-auto object-contain" />
           </a>
 
-          <div className="flex items-center gap-4">
-            <nav className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            <nav className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
               {navLinks.map((item) => (
                 <a
                   key={item.href}
@@ -73,9 +82,9 @@ export default function Navbar() {
         </div>
 
         {/* Desktop layout: horizontal */}
-        <div className="hidden md:flex items-center justify-between px-6 py-4">
+        <div className="hidden md:flex items-center justify-between px-8 py-4">
           <a href="#" onClick={(e) => handleScroll(e, "#")} className="relative z-10 flex items-center gap-2 shrink-0">
-            <Image src="/logos/beyaz-ustu-logo-1.png" alt="Sollen" width={100} height={32} className="h-8 w-auto object-contain" />
+            <Image src="/logos/beyaz-ustu-logo-1.png" alt="Sollen" width={160} height={48} className="h-11 w-auto object-contain" />
           </a>
 
           <nav className="flex items-center gap-8">

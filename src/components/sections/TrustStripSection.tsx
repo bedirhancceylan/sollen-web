@@ -46,8 +46,8 @@ export default function TrustStripSection() {
             {t.customers.heading}
           </p>
           <h2
-            className="text-[#1E3A8A] font-bold tracking-cinematic leading-[1.05] max-w-4xl"
-            style={{ fontSize: "clamp(3.5rem, 7vw, 6rem)" }}
+            className="text-[#1E3A8A] font-bold tracking-cinematic leading-[1.08] max-w-3xl"
+            style={{ fontSize: "clamp(2.25rem, 4.5vw, 3.75rem)" }}
           >
             {t.trust.headline}
           </h2>
