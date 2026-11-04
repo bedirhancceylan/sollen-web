@@ -164,7 +164,6 @@ export default function SolutionsSection() {
   const [activeTab, setActiveTab] = useState(0);
   const { locale, t: tDict } = useT();
   const TABS = locale === "en" ? TABS_EN : TABS_TR;
-  const tab = TABS[activeTab];
 
   // Reset tab selection when locale changes
   const prevLocale = useState(locale);
@@ -172,15 +171,6 @@ export default function SolutionsSection() {
     setActiveTab(0);
     prevLocale[1](locale);
   }
-
-  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-    e.preventDefault();
-    const element = document.querySelector(targetId);
-    if (element) {
-      const top = element.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
-  };
 
   return (
     <section id="solutions" className="w-full py-16 lg:py-20 px-6 lg:px-16 bg-[#FDFBF7]">

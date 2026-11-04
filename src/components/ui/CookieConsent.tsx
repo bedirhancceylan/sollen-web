@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useSyncExternalStore } from "react";
 import { useT } from "@/lib/i18n";
 import { gsap } from "@/lib/gsap";
 
 export default function CookieConsent() {
   const [show, setShow] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const [showDetails, setShowDetails] = useState(false);
   const [analytics, setAnalytics] = useState(false);
   const [marketing, setMarketing] = useState(false);
@@ -14,7 +14,6 @@ export default function CookieConsent() {
   const { t } = useT();
 
   useEffect(() => {
-    setMounted(true);
     let consent: string | null = null;
     try {
       consent = localStorage.getItem("sollen_cookie_consent");
